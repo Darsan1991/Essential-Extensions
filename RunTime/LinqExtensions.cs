@@ -245,5 +245,41 @@ namespace DGames.Essentials.Extensions
 
         public static T FirstOrValue<T>(this IEnumerable<T> enumerable, T value) =>
             enumerable.FirstOrValue(null, value);
+        
+        public static T MinItem<T>(this IEnumerable<T> enumerable, Func<T, float> selector)
+        {
+            T result = default;
+            var min = float.MaxValue;
+            
+            foreach (var item in enumerable)
+            {
+                var value = selector(item);
+                if (value < min)
+                {
+                    min = value;
+                    result = item;
+                }
+            }
+
+            return result;
+        }
+        
+        public static T MaxItem<T>(this IEnumerable<T> enumerable, Func<T, float> selector)
+        {
+            T result = default;
+            var max = float.MinValue;
+            
+            foreach (var item in enumerable)
+            {
+                var value = selector(item);
+                if (value > max)
+                {
+                    max = value;
+                    result = item;
+                }
+            }
+
+            return result;
+        }
     }
 }
